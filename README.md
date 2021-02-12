@@ -1,4 +1,4 @@
-# Hero-Skin
+# Hero-Skin-LOL
 
 ## 王者荣耀
 
@@ -53,3 +53,54 @@
 
 如：<http://game.gtimg.cn/images/lol/act/img/js/hero/1.js>
 
+### 爬取数据
+
+LOL主页（下面有英雄资料）：<https://lol.qq.com/main.shtml>
+
+英雄主页：<https://lol.qq.com/data/info-heros.shtml>
+
+具体英雄详情页面：<https://lol.qq.com/data/info-defail.shtml?id=1>
+
+#### 皮肤图片大小
+
+从https://game.gtimg.cn/images/lol/act/img/js/hero/1.js可以看到具体图片URL。
+
+
+
+英雄小图（60*60）：<https://game.gtimg.cn/images/lol/act/img/skin/small1000.jpg>
+
+![](<https://game.gtimg.cn/images/lol/act/img/skin/small1000.jpg>)
+
+英雄大图（980*500）：<https://game.gtimg.cn/images/lol/act/img/skin/big1000.jpg>
+
+![](<https://game.gtimg.cn/images/lol/act/img/skin/big1000.jpg>)
+
+攻略中心图片<https://101.qq.com/detail.shtml?ADTAG=cooperation.glzx.web&name=Annie&line=mid>
+
+：<https://game.gtimg.cn/images/lol/act/img/sourceImg/guide1000.jpg>
+
+![](<https://game.gtimg.cn/images/lol/act/img/sourceImg/guide1000.jpg>)
+
+视屏封面图片：<https://game.gtimg.cn/images/lol/act/img/skinvideo/sp1000.jpg>
+
+![](<https://game.gtimg.cn/images/lol/act/img/skinvideo/sp1000.jpg>)
+
+手机端：<https://game.gtimg.cn/images/lol/act/img/skinloading/1000.jpg>
+
+![](<https://game.gtimg.cn/images/lol/act/img/skinloading/1000.jpg>)
+
+#### 相关json
+
+英雄列表json：<https://game.gtimg.cn/images/lol/act/img/js/heroList/hero_list.js?v=14>
+
+具体英雄json：<https://game.gtimg.cn/images/lol/act/img/js/hero/1.js>
+
+#### 主要图片尺寸！！
+
+我主要是想爬取这三种尺寸的图片。
+
+英雄小图（60*60）：<https://game.gtimg.cn/images/lol/act/img/skin/small1000.jpg>
+
+英雄大图（980*500）：<https://game.gtimg.cn/images/lol/act/img/skin/big1000.jpg>
+
+手机端：<https://game.gtimg.cn/images/lol/act/img/skinloading/1000.jpg>
