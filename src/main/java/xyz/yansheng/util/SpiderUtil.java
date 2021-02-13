@@ -9,12 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import xyz.yansheng.bean.Hero;
@@ -254,79 +254,46 @@ public class SpiderUtil {
         String url = "https://game.gtimg.cn/images/lol/act/img/js/hero/" + hero.getEname() + ".js";
         System.out.println("url:" + url);
 
-        List<String> skins1 = new ArrayList<String>(16);
-
         Document doc = null;
+        JSONArray jsonArray = null;
+        JSONObject obj = null;
         try {
-            Connection.Response res =
-                Jsoup.connect(url).header("Accept", "*/*").header("Accept-Encoding", "gzip, deflate")
-                    .header("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3")
-                    .header("Content-Type", "application/json;charset=gbk")
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0")
-                    .timeout(10000).ignoreContentType(true).execute();// .get();
-            String body = res.body();
-//            JSONObject json = JSONObject.fromObject(body);
-            System.out.println("doc:" + doc);
-            System.out.println("body:" + body);
-
-
-            Document doc1 = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
-            System.out.println(doc1.text());
-
-
-            Object obj = JSONObject.parseObject(doc1.text());
-            System.out.println("obj:" + obj);
-
-//            System.out.println("doc1.text():" + unicodeToCn(doc1.text()));
-
+            doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
+            // System.out.println(doc.text());
+            // JSONObject.parseObject 自动将Unicode字符串进行解码
+            obj = JSONObject.parseObject(doc.text());
+            // System.out.println("obj:" + obj);
+            // System.out.println("obj.skins:" + obj.get("skins"));
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 
-        // 皮肤列表
-        // <ul class="pic-pf-list pic-pf-list3" data-imgname="幻纱之灵|归虚梦演">
-        // (2019年11月22日)发现有变化了：幻纱之灵&0|归虚梦演&0，需要去除多余的字符串
-        Elements liElements = doc.select("ul#skinNAV li"); // 延迟加载，爬取不了
-        System.out.println("liElements:" + liElements);
-        // liElements = liElements.select("a");
-
-        int size = liElements.size();
-        StringBuffer skinname = new StringBuffer();
-        for (int i = 0; i < size; i++) {
-            Element liElement = liElements.get(i);
-            // System.out.println("liElement:"+liElement);
-            skinname = skinname.append(liElement.select("a").attr("title"));
-
+        jsonArray = (JSONArray)obj.get("skins");
+        String skinName = "";
+        String skinId = "";
+        for (Object object : jsonArray) {
+            JSONObject jsonObject = (JSONObject)object;
+            // System.out.println("jsonObject:" + jsonObject);
+            skinName = skinName + jsonObject.get("name") + "|";
+            skinId = skinId + jsonObject.get("skinId") + "|";
         }
-        // System.out.println("skinname:"+skinname);
 
-        // 英雄skinName,skins
-        String skinName = liElements.select("a").attr("title");
-        // System.out.println("skinName:"+skinName);
-        // 去除皮肤名中多余的字符串
-        skinName = skinName.replaceAll("&\\d+", "");
-        String[] skinsArray = skinName.split("\\|");
-        skins1 = Arrays.asList(skinsArray);
+        String[] nameArray = skinName.split("\\|");
+        String[] idArray = skinId.split("\\|");
+        List<String> skins = new ArrayList<String>(16);
+        List<String> skinIds = new ArrayList<String>(16);
+        skins = Arrays.asList(nameArray);
+        skinIds = Arrays.asList(idArray);
+
+        System.out.println("skins.size():" + skins.size() + ",skins:" + skins);
+        System.out.println("skinIds.size():" + skinIds.size() + ",skinIds:" + skinIds);
 
         hero.setSkinName(skinName);
-        hero.setSkins(skins1);
+        hero.setSkins(skins);
+        hero.setSkinId(skinIds);
 
         return hero;
     }
-
-    //Unicode转中文方法
-    private static String unicodeToCn(String unicode) {
-        /** 以 \ u 分割，因为java注释也能识别unicode，因此中间加了一个空格 */
-        String[] strs = unicode.split("\\\\u");
-        String returnStr = strs[0];
-        // 由于unicode字符串以 \ u 开头，因此分割出的第一个字符是""。
-        for (int i = 1; i < strs.length; i++) {
-            returnStr += (char)Integer.valueOf(strs[i], 16).intValue();
-            System.out.println("returnStr:" + returnStr);
-        }
-        return returnStr;
-    }
-
 }

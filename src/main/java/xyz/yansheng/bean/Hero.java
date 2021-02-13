@@ -71,6 +71,10 @@ public class Hero implements Serializable{
      * 皮肤名列表，如：[归虚梦演, 幻纱之灵]，按照推出顺序，先出的在前面
      */
     private List<String> skins;
+    /**
+     * 皮肤id，如1000，1001
+     */
+    private List<String> skinId;
 
     // 1.按照分析，创建对应文件夹
     // 1.1.https://game.gtimg.cn/images/yxzj/img201606/heroimg/518/518-smallskin-1.jpg
@@ -112,6 +116,49 @@ public class Hero implements Serializable{
             String smallskin = "-smallskin-";
             String mobileskin = "-mobileskin-";
             String bigskin = "-bigskin-";
+            String suffix = ".jpg";
+            for (int i = 1; i < size + 1; i++) {
+                String psu = phonePrefix + ename + "/" + ename + smallskin + i + suffix;
+                String pmu = phonePrefix + ename + "/" + ename + mobileskin + i + suffix;
+                String pbu = phonePrefix + ename + "/" + ename + bigskin + i + suffix;
+                String wmu = wallpaperPrefix + ename + "/" + ename + mobileskin + i + suffix;
+                String wbu = wallpaperPrefix + ename + "/" + ename + bigskin + i + suffix;
+                phoneSmallskinUrl.add(psu);
+                phoneMobileskinUrl.add(pmu);
+                phoneBigskinUrl.add(pbu);
+                wallpaperMobileskinUrl.add(wmu);
+                wallpaperBigskinUrl.add(wbu);
+            }
+        }
+
+    }
+
+    /**
+     * 利用现有字段生成其他字段
+     */
+    public void generateField2() {
+        // 设置默认皮肤
+        if (skins != null && !skins.isEmpty()) {
+            title = skins.get(0);
+        }
+
+        // 根据英雄的ename和皮肤列表，生成各种类型皮肤图片网址
+        if (ename != null && skins != null) {
+            int size = skins.size();
+            phoneSmallskinUrl = new ArrayList<String>(size);
+            phoneMobileskinUrl = new ArrayList<String>(size);
+            phoneBigskinUrl = new ArrayList<String>(size);
+            wallpaperMobileskinUrl = new ArrayList<String>(size);
+            wallpaperBigskinUrl = new ArrayList<String>(size);
+
+            // https://game.gtimg.cn/images/lol/act/img/skin/small1000.jpg
+            // https://game.gtimg.cn/images/lol/act/img/skin/big1000.jpg
+            // https://game.gtimg.cn/images/lol/act/img/skinloading/1000.jpg
+            String phonePrefix = "https://game.gtimg.cn/images/lol/act/img/skin/";
+            String wallpaperPrefix = "https://game.gtimg.cn/images/lol/act/img/skinloading/";
+            String smallskin = "small";
+            String mobileskin = "-mobileskin-";
+            String bigskin = "big";
             String suffix = ".jpg";
             for (int i = 1; i < size + 1; i++) {
                 String psu = phonePrefix + ename + "/" + ename + smallskin + i + suffix;

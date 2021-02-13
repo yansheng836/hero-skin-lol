@@ -44,7 +44,7 @@ public class App2 {
             System.out.println(hero.toStringSimple());
             count++;
             if (count == 2) {
-                 break;
+//                 break;
             }
         }
         int sum = 0;
