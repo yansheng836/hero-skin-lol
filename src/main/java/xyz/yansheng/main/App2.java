@@ -1,13 +1,9 @@
 package xyz.yansheng.main;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.FileUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -39,12 +35,12 @@ public class App2 {
         int count = 0;
         for (Hero hero : heros) {
             SpiderUtil.getLolHeroSkins2(hero);
-            hero.generateField();
-            // System.out.println(hero.toString());
-            System.out.println(hero.toStringSimple());
+            hero.generateField2();
+//            System.out.println(hero.toString());
+//            System.out.println(hero.toStringSimple());
             count++;
             if (count == 2) {
-//                 break;
+                // break;
             }
         }
         int sum = 0;
@@ -71,21 +67,21 @@ public class App2 {
             JSON.toJSONString(map, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullListAsEmpty);
         // System.out.println(jsonString);
 
-//        String pathname = "./heros1.json";
-//        File file = new File(pathname);
-//        try {
-//            FileUtils.writeStringToFile(file, jsonString, SpiderUtil.UTF8);
-//            System.out.println("写数据到json成功");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        // String pathname = "./heros1.json";
+        // File file = new File(pathname);
+        // try {
+        // FileUtils.writeStringToFile(file, jsonString, SpiderUtil.UTF8);
+        // System.out.println("写数据到json成功");
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
 
         // 4.下载图片:sign 标志：0全部，1只下载手机小屏，2手机中，3手机大，4电脑中，5电脑大
-        int sign = 0;
+        int sign = 1;
 
         List<String> dirs = FileUtil.mkdir(sign);
         for (String dir : dirs) {
-            // FileUtil.downloadImages(heros, dir);
+             FileUtil.downloadImages(heros, dir);
         }
 
     }

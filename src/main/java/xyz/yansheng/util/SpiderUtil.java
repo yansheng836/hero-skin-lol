@@ -282,13 +282,13 @@ public class SpiderUtil {
 
         String[] nameArray = skinName.split("\\|");
         String[] idArray = skinId.split("\\|");
-        List<String> skins = new ArrayList<String>(16);
-        List<String> skinIds = new ArrayList<String>(16);
+        List<String> skins;
+        List<String> skinIds;
         skins = Arrays.asList(nameArray);
         skinIds = Arrays.asList(idArray);
 
-        System.out.println("skins.size():" + skins.size() + ",skins:" + skins);
-        System.out.println("skinIds.size():" + skinIds.size() + ",skinIds:" + skinIds);
+//        System.out.println("skins.size():" + skins.size() + ",skins:" + skins);
+//        System.out.println("skinIds.size():" + skinIds.size() + ",skinIds:" + skinIds);
 
         hero.setSkinName(skinName);
         hero.setSkins(skins);

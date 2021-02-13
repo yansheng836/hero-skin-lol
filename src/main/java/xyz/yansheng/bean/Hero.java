@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Hero implements Serializable{
+public class Hero implements Serializable {
     // {
     // "ename": 522,
     // "cname": "曜",
@@ -147,9 +147,7 @@ public class Hero implements Serializable{
             int size = skins.size();
             phoneSmallskinUrl = new ArrayList<String>(size);
             phoneMobileskinUrl = new ArrayList<String>(size);
-            phoneBigskinUrl = new ArrayList<String>(size);
             wallpaperMobileskinUrl = new ArrayList<String>(size);
-            wallpaperBigskinUrl = new ArrayList<String>(size);
 
             // https://game.gtimg.cn/images/lol/act/img/skin/small1000.jpg
             // https://game.gtimg.cn/images/lol/act/img/skin/big1000.jpg
@@ -161,24 +159,20 @@ public class Hero implements Serializable{
             String bigskin = "big";
             String suffix = ".jpg";
             for (int i = 1; i < size + 1; i++) {
-                String psu = phonePrefix + ename + "/" + ename + smallskin + i + suffix;
-                String pmu = phonePrefix + ename + "/" + ename + mobileskin + i + suffix;
-                String pbu = phonePrefix + ename + "/" + ename + bigskin + i + suffix;
-                String wmu = wallpaperPrefix + ename + "/" + ename + mobileskin + i + suffix;
-                String wbu = wallpaperPrefix + ename + "/" + ename + bigskin + i + suffix;
+                String psu = phonePrefix + smallskin + skinId.get(i - 1) + suffix;
+                String pmu = phonePrefix + bigskin + skinId.get(i - 1) + suffix;
+                String wmu = wallpaperPrefix + skinId.get(i - 1) + suffix;
                 phoneSmallskinUrl.add(psu);
                 phoneMobileskinUrl.add(pmu);
-                phoneBigskinUrl.add(pbu);
                 wallpaperMobileskinUrl.add(wmu);
-                wallpaperBigskinUrl.add(wbu);
             }
         }
 
     }
 
     public String toStringSimple() {
-        return "Hero [id=" + id + ", ename=" + ename + ", cname=" + cname + ", title=" + title
-            + ", skinName=" + skinName + "]";
+        return "Hero [id=" + id + ", ename=" + ename + ", cname=" + cname + ", title=" + title + ", skinName="
+            + skinName + "]";
     }
 
 }
