@@ -36,8 +36,8 @@ public class App2 {
         for (Hero hero : heros) {
             SpiderUtil.getLolHeroSkins2(hero);
             hero.generateField2();
-//            System.out.println(hero.toString());
-//            System.out.println(hero.toStringSimple());
+            // System.out.println(hero.toString());
+            // System.out.println(hero.toStringSimple());
             count++;
             if (count == 2) {
                 // break;
@@ -81,7 +81,7 @@ public class App2 {
 
         List<String> dirs = FileUtil.mkdir(sign);
         for (String dir : dirs) {
-             FileUtil.downloadImages(heros, dir);
+//            FileUtil.downloadImages(heros, dir);
         }
 
     }

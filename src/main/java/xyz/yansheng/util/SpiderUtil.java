@@ -203,7 +203,7 @@ public class SpiderUtil {
     public static Hero getLolHeroSkins(Hero hero) {
 
         String url = hero.getHeroUrl();
-        System.out.println("url:" + url);
+//        System.out.println("url:" + url);
 
         List<String> skins1 = new ArrayList<String>(16);
 
@@ -252,7 +252,7 @@ public class SpiderUtil {
 
         // https://game.gtimg.cn/images/lol/act/img/js/hero/1.js
         String url = "https://game.gtimg.cn/images/lol/act/img/js/hero/" + hero.getEname() + ".js";
-        System.out.println("url:" + url);
+//        System.out.println("url:" + url);
 
         Document doc = null;
         JSONArray jsonArray = null;
@@ -276,8 +276,12 @@ public class SpiderUtil {
         for (Object object : jsonArray) {
             JSONObject jsonObject = (JSONObject)object;
             // System.out.println("jsonObject:" + jsonObject);
-            skinName = skinName + jsonObject.get("name") + "|";
-            skinId = skinId + jsonObject.get("skinId") + "|";
+            // 用于判断皮肤是否有效，0有效，1无效
+            // System.out.println("jsonObject.get(\"chromas\"):" + jsonObject.get("chromas"));
+            if ("0".equals(jsonObject.get("chromas"))) {
+                skinName = skinName + jsonObject.get("name") + "|";
+                skinId = skinId + jsonObject.get("skinId") + "|";
+            }
         }
 
         String[] nameArray = skinName.split("\\|");
@@ -287,8 +291,8 @@ public class SpiderUtil {
         skins = Arrays.asList(nameArray);
         skinIds = Arrays.asList(idArray);
 
-//        System.out.println("skins.size():" + skins.size() + ",skins:" + skins);
-//        System.out.println("skinIds.size():" + skinIds.size() + ",skinIds:" + skinIds);
+        // System.out.println("skins.size():" + skins.size() + ",skins:" + skins);
+        // System.out.println("skinIds.size():" + skinIds.size() + ",skinIds:" + skinIds);
 
         hero.setSkinName(skinName);
         hero.setSkins(skins);

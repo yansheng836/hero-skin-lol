@@ -131,6 +131,8 @@ public class FileUtil {
                 String imgUrl = urls.get(i);
 
                 // phone-smallskin-images/96西施-0-归虚梦演.jpg
+                // 英雄名存在斜杠，如： "K/DA 阿卡丽"，拼接后："75离群之刺 阿卡丽-10-K\DA 阿卡丽.jpg"
+                skin = skin.replace("/", "·");
                 String pathname = dir + "/" + id + cname + "-" + (i + 1) + "-" + skin + ".jpg";
                 // System.out.println("pathname:" + pathname);
 
