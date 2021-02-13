@@ -104,3 +104,91 @@ LOL主页（下面有英雄资料）：<https://lol.qq.com/main.shtml>
 英雄大图（980*500）：<https://game.gtimg.cn/images/lol/act/img/skin/big1000.jpg>
 
 手机端：<https://game.gtimg.cn/images/lol/act/img/skinloading/1000.jpg>
+
+### 统计
+
+到目前为止，王者荣耀一共有96个英雄，366个皮肤（含伴生皮肤）。
+
+|         时间          | 英雄数量 | 皮肤数量 | 实际下载皮肤数量 |
+| :-------------------: | :------: | :------: | ---------------- |
+| 2021年2月14日00:44:30 |   154    |   3545   | 1276             |
+|                       |          |          |                  |
+
+
+### 存在问题
+
+部分英雄后面的几个皮肤的id和URL不一致，导致下载会出现问题，比如：第二个英雄 奥拉夫
+
+<https://lol.qq.com/data/info-defail.shtml?id=2>
+
+7 https://game.gtimg.cn/images/lol/act/img/skin/big2006.jpg
+
+8 https://game.gtimg.cn/images/lol/act/img/skin/small2015.jpg
+
+9 https://game.gtimg.cn/images/lol/act/img/skin/small2016.jpg
+
+json对比
+
+![1613235369115](assets/1613235369115.png)
+
+有效的皮肤的对应的皮肤json数据：
+
+```json
+{
+    "skinId": "2006",
+    "heroId": "2",
+    "heroName": "狂战士",
+    "heroTitle": "奥拉夫",
+    "name": "牛扒狂战 奥拉夫",
+    "chromas": "0",
+    "chromasBelongId": "0",
+    "isBase": "0",
+    "emblemsName": "common",
+    "description": "他是肉食大师，野蛮人烹饪家，凛冬之爪的伟大北地屠夫。他到此追求口感上的胜利或书面上的死亡。请给奥拉夫来点掌声！",
+    "mainImg": "https://game.gtimg.cn/images/lol/act/img/skin/big2006.jpg",
+    "iconImg": "https://game.gtimg.cn/images/lol/act/img/skin/small2006.jpg",
+    "loadingImg": "https://game.gtimg.cn/images/lol/act/img/skinloading/2006.jpg",
+    "videoImg": "https://game.gtimg.cn/images/lol/act/img/skinvideo/sp2006.jpg",
+    "sourceImg": "https://game.gtimg.cn/images/lol/act/img/guidetop/guide2006.jpg",
+    "vedioPath": "",
+    "suitType": "",
+    "publishTime": "",
+    "chromaImg": ""
+}
+```
+
+无效的：
+
+```json
+{
+    "skinId": "2007",
+    "heroId": "2",
+    "heroName": "狂战士",
+    "heroTitle": "奥拉夫",
+    "name": "铁哥们儿 奥拉夫 成吨的伤害",
+    "chromas": "1",
+    "chromasBelongId": "2003",
+    "isBase": "0",
+    "emblemsName": "",
+    "description": "",
+    "mainImg": "",
+    "iconImg": "",
+    "loadingImg": "",
+    "videoImg": "",
+    "sourceImg": "",
+    "vedioPath": "",
+    "suitType": "",
+    "publishTime": "",
+    "chromaImg": "https://game.gtimg.cn/images/lol/act/img/chromas/2/2007.png"
+}
+```
+
+### bug
+
+小图有一张有问题：
+
+```
+图片链接(https://game.gtimg.cn/images/yxzj/img201606/heroimg/142/142-bigskin-5.jpg)无效！响应状态码为：404
+```
+
+直接访问也是404。
